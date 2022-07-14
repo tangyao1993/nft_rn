@@ -1,6 +1,6 @@
 import React from 'react'
-import {Text, View} from 'react-native'
-import {Icon, SearchBar, TabBar} from '@ant-design/react-native'
+import {Image, Text, View} from 'react-native'
+import {Icon, SearchBar, TabBar,Flex,WingBlank} from '@ant-design/react-native'
 import Market from "../market/Market";
 import My from "../my/My"
 
@@ -12,15 +12,25 @@ export default class Nav extends React.Component<any, any> {
         }
     }
 
+    jump(){
+
+    }
+
     renderContent() {
-        return (
-            <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white'}}>
-                <SearchBar placeholder='搜索关键词' showCancelButton/>
-                {
-                    this.state.selectedTab === 'market'? <Market/>:<My/>
-                }
-            </View>
-        )
+        if (this.state.selectedTab === 'market'){
+            return (
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <SearchBar placeholder='搜索关键词' showCancelButton/>
+                    <Market/>
+                </View>
+            )
+        }else{
+            return (
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <My/>
+                </View>
+            )
+        }
     }
 
     onChangeTab(tabName: any) {
