@@ -1,6 +1,6 @@
 import React from 'react'
-import {Image, Text, View} from 'react-native'
-import {Icon, SearchBar, TabBar,Flex,WingBlank} from '@ant-design/react-native'
+import {View} from 'react-native'
+import {Icon, SearchBar, TabBar} from '@ant-design/react-native'
 import Market from "../market/Market";
 import My from "../my/My"
 
@@ -26,7 +26,7 @@ export default class Nav extends React.Component<any, any> {
             )
         }else{
             return (
-                <View style={{flex: 1, alignItems: 'center'}}>
+                <View style={{ alignItems: 'center'}}>
                     <My/>
                 </View>
             )
