@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import { View, FlatList, Text, StyleSheet,ActivityIndicator} from 'react-native'
 import axios from 'axios';
 
+
 class CollectionList extends Component {
     constructor(props){
         super(props)
@@ -15,32 +16,38 @@ class CollectionList extends Component {
             isLoading:false,
             dataArr:[],
             isMoreData:0,
+            appendDate:[]
         }
-        //数据初始化
-        this.init();
+        this.getData();
     }
 
-    init(){
-        axios.get("http://localhost:8080/nft/page?current=1&size=10").then(
+    getData(){
+        axios.get("/nft/page",{params:{current:this.state.pageNum,size:this.state.pageSize}}).then(
             response=>{
                 const resp = response.data;
+
+                const records = resp.data.records;
+
+                this.setState({
+                    appendDate:[]
+                })
+
+                for (let i = 0; i < records.length; i++) {
+                    this.state.dataArr.push(JSON.stringify(records[i]));
+                    this.state.appendDate.push(JSON.stringify(records[i]));
+                }
+
                 if (resp.code === '200'){
-                    let dataArr = this.state.dataArr;
                     this.setState({
-                        /*TODO*/
-                        dataArr:dataArr.concat(resp.data.records),
                         pageNum:resp.data.current,
                         pageSize:resp.data.size,
                         totalNum:resp.data.pages
                     })
                 }
-
-                alert(this.state.dataArr);
-                alert(this.state.pageNum);
-                alert(this.state.pageSize);
-                alert(this.state.totalNum);
             })
+
     }
+
 
     genIndicator(){   //加载符号的制作
         if (this.state.isMoreData === 1){
@@ -70,9 +77,10 @@ class CollectionList extends Component {
 
     /*渲染数据*/
     renderData({item}){
+        let obj = JSON.parse(item);
         return(
             <View>
-                <Text>{item}</Text>
+                <Text style={{fontSize:100}}>{obj.id}</Text>
             </View>
         )
     }
@@ -85,13 +93,18 @@ class CollectionList extends Component {
         })
 
         //2、异步请求
-        let newData = [7,8,9];
+        //清理array
         this.setState({
-            dataArr:newData,
+            dataArr:[],
+            pageNum:1
+        })
+        //获取初始化数据
+        this.getData();
+        this.setState({
             isLoading:false,
-
         })
 
+        console.log(this.state.pageNum)
     }
 
 
@@ -102,15 +115,18 @@ class CollectionList extends Component {
         })
 
         //加载数据
-        let appendDate = [];
+        this.setState({
+            pageNum:this.state.pageNum+1,
+        })
+        this.getData();
         //如果有数据就追加。没有数据就显示
-        if (appendDate.length === 0){
+        if (this.state.appendDate.length === 0){
             this.setState({
                 isMoreData:2,
                 isLoading:false
             })
         }else{
-            let newData = this.state.dataArr.concat(appendDate)
+            let newData = this.state.dataArr.concat(this.state.appendDate)
             this.setState({
                 dataArr:newData,
                 isLoading:false,
@@ -118,6 +134,7 @@ class CollectionList extends Component {
             })
         }
 
+        console.log(this.state.pageNum)
 
     }
 
