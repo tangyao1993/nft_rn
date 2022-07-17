@@ -41,8 +41,7 @@ export default class My extends React.Component<any, any> {
 
                 <Tabs tabs={tabs}>
                     <CollectionList/>
-                    {/*<SoldList/>*/}
-                    <Text>123</Text>
+                    <SoldList/>
                 </Tabs>
 
             </View>
