@@ -2,8 +2,9 @@
 
 /*藏品列表*/
 import React, {Component} from 'react';
-import { View, FlatList, Text, StyleSheet,ActivityIndicator} from 'react-native'
+import {View, FlatList, Text, StyleSheet, ActivityIndicator, Image} from 'react-native'
 import axios from 'axios';
+import { Flex, WingBlank } from '@ant-design/react-native'
 
 
 class CollectionList extends Component {
@@ -12,81 +13,34 @@ class CollectionList extends Component {
         this.state = {
             pageNum:1,
             pageSize:10,
-            totalNum:0,
+            totalPage:0,
             isLoading:false,
             dataArr:[],
-            isMoreData:0,
-            appendDate:[]
         }
         this.getData();
     }
+
 
     getData(){
         axios.get("/nft/page",{params:{current:this.state.pageNum,size:this.state.pageSize}}).then(
             response=>{
                 const resp = response.data;
 
-                const records = resp.data.records;
-
-                this.setState({
-                    appendDate:[]
-                })
-
-                for (let i = 0; i < records.length; i++) {
-                    this.state.dataArr.push(JSON.stringify(records[i]));
-                    this.state.appendDate.push(JSON.stringify(records[i]));
-                }
-
-                if (resp.code === '200'){
+                //console.log(resp);
+                if (resp.code === 200){
                     this.setState({
-                        pageNum:resp.data.current,
-                        pageSize:resp.data.size,
-                        totalNum:resp.data.pages
+                        dataArr:this.state.dataArr.concat(resp.data.records),
+                        totalPage:resp.data.pages
                     })
                 }
-            })
 
-    }
-
-
-    genIndicator(){   //加载符号的制作
-        if (this.state.isMoreData === 1){
-            return(
-                <View>
-                    <ActivityIndicator
-                        size="small"
-                        animating={true}
-                        color="#ccc"
-                    />
-
-                    <Text style={{ textAlign:"center", flex:1, marginBottom:10}}>正在加载数据...</Text>
-                </View>
-            )
-        }else if (this.state.isMoreData === 2){
-            return(
-                <View>
-                    <Text style={{ textAlign:"center", flex:1, marginBottom:10}}>我是有底线的</Text>
-                </View>
-            )
-        }else {
-            return null
-        }
-
-    }
-
-
-    /*渲染数据*/
-    renderData({item}){
-        let obj = JSON.parse(item);
-        return(
-            <View>
-                <Text style={{fontSize:100}}>{obj.id}</Text>
-            </View>
-        )
+            }).catch(error => {
+                console.log(error);
+        })
     }
 
     /*下拉刷新*/
-    loadRefreshData(){
+    loadRefreshData = () => {
         //1、修改 isLoading的值为true
         this.setState({
             isLoading:true
@@ -96,72 +50,99 @@ class CollectionList extends Component {
         //清理array
         this.setState({
             dataArr:[],
-            pageNum:1
+            pageNum:1,
+            pageSize:this.state.pageSize,
+        },()=>{
+            //获取初始化数据
+            this.getData();
         })
-        //获取初始化数据
-        this.getData();
         this.setState({
             isLoading:false,
         })
-
-        console.log(this.state.pageNum)
     }
 
 
     /*上拉加载*/
-    loadMoreData(){
-        this.setState({
-            isLoading:true
-        })
-
-        //加载数据
-        this.setState({
-            pageNum:this.state.pageNum+1,
-        })
-        this.getData();
-        //如果有数据就追加。没有数据就显示
-        if (this.state.appendDate.length === 0){
-            this.setState({
-                isMoreData:2,
-                isLoading:false
-            })
-        }else{
-            let newData = this.state.dataArr.concat(this.state.appendDate)
-            this.setState({
-                dataArr:newData,
-                isLoading:false,
-                isMoreData:1
-            })
+    loadMoreData = () =>{
+        if (this.state.pageNum +1 >this.state.totalPage){
+            return;
         }
 
-        console.log(this.state.pageNum)
+        this.setState({
+            isLoading:true,
+            pageNum:this.state.pageNum + 1,
+            pageSize:this.state.pageSize,
+        },()=>{
+            this.getData();
+        })
+        //如果有数据就追加。没有数据就显示
+        this.setState({
+            isLoading:false
+        })
 
     }
 
+    /*渲染数据*/
+    renderData({item}){
+        return(
+            <WingBlank style={styles.wingBlankCss}>
+                <Flex direction={"column"}>
+                    <Flex.Item>
+                        <Image style={styles.imgCss} source={require("../resource/img.png")}/>
+                    </Flex.Item>
+                    <Flex.Item>
+                        <Text>名称:{item.id}</Text>
+                    </Flex.Item>
+                    <Flex.Item>
+                        <Text>作者</Text>
+                    </Flex.Item>
+                    <Flex.Item>
+                        <Text>价格:{item.price}</Text>
+                    </Flex.Item>
+                </Flex>
+            </WingBlank>
+        )
+    }
+
     render() {
+        if (this.state.isLoading){
+            return (
+                <ActivityIndicator
+                    size="small"
+                    animating={true}
+                    color="#ccc"
+                />
+            )
+        }
         return (
-            <View style={{flex:1,backgroundColor:'red'}}>
-                <FlatList
+            <View style={styles.container}>
+                <FlatList numColumns ={2}
                     data = {this.state.dataArr}
+                    keyExtractor={(item,i)=>i}
                     renderItem = {this.renderData}
                     refreshing = {this.state.isLoading}  //设置是否正在加载数据
-                    onRefresh = {this.loadRefreshData.bind(this)} //设置刷新的时候，执行的代码
-                    ListFooterComponent = {this.genIndicator.bind(this)}   //确定加载的符号
-                    onEndReached = {this.loadMoreData.bind(this)}
-                    ListEmptyComponent = {
-                        ()=>{
-                            return <View><Text style={{ textAlign:"center", flex:1, marginBottom:10}}>暂无数据</Text></View>
-                        }
-                    }
+                    onRefresh = {this.loadRefreshData} //设置刷新的时候，执行的代码
+                    onEndReached = {this.loadMoreData}
+                    onEndReachedThreshold={0.5}
                 />
-
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-
+    container:{
+        flex:1
+    },
+    imgCss:{
+        width:150,
+        height:150
+    },
+    wingBlankCss:{
+        marginTop: 5,
+        marginBottom: 5,
+        marginLeft:30
+    }
 })
 
 export default CollectionList;
