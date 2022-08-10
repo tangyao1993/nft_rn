@@ -12,9 +12,6 @@ export default class Nav extends React.Component<any, any> {
         }
     }
 
-    jump(){
-
-    }
 
     renderContent() {
         if (this.state.selectedTab === 'market'){
