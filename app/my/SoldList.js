@@ -137,9 +137,9 @@ const styles = StyleSheet.create({
         height:150
     },
     wingBlankCss:{
-        marginTop: 5,
-        marginBottom: 5,
-        marginLeft:30
+        marginTop: '2%',
+        marginBottom: '2%',
+        marginLeft:'7%'
     }
 })
 

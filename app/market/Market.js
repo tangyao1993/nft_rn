@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Image, FlatList, ScrollView, ActivityIndicator,TouchableHighlight} from "react-native";
+import {Text, View, StyleSheet, Image, FlatList, ActivityIndicator} from "react-native";
 import Swiper from 'react-native-swiper'
 import axios from "axios";
 import {Flex, WingBlank} from "@ant-design/react-native";
-import Detail from "../detail/Detail";
 
 const styles = StyleSheet.create({
     wrapper: {flex:1},
@@ -121,24 +120,22 @@ class Market extends Component {
     /*渲染数据*/
     renderData({item}){
         return(
-            <TouchableHighlight>
-                <WingBlank style={styles.wingBlankCss}>
-                    <Flex direction={"column"}>
-                        <Flex.Item>
-                            <Image style={styles.imgCss} source={require("../resource/img.png")}/>
-                        </Flex.Item>
-                        <Flex.Item>
-                            <Text>名称:{item.name}</Text>
-                        </Flex.Item>
-                        <Flex.Item>
-                            <Text>作者:{item.genUserName}</Text>
-                        </Flex.Item>
-                        <Flex.Item>
-                            <Text>价格:{item.price}</Text>
-                        </Flex.Item>
-                    </Flex>
-                </WingBlank>
-            </TouchableHighlight>
+            <WingBlank style={styles.wingBlankCss}>
+                <Flex direction={"column"}>
+                    <Flex.Item>
+                        <Image style={styles.imgCss} source={require("../resource/img.png")}/>
+                    </Flex.Item>
+                    <Flex.Item>
+                        <Text>名称:{item.name}</Text>
+                    </Flex.Item>
+                    <Flex.Item>
+                        <Text>作者:{item.genUserName}</Text>
+                    </Flex.Item>
+                    <Flex.Item>
+                        <Text>价格:{item.price}</Text>
+                    </Flex.Item>
+                </Flex>
+            </WingBlank>
 
         )
     }

@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {View, FlatList, Text, StyleSheet, ActivityIndicator, Image, TouchableHighlight} from 'react-native'
 import axios from 'axios';
 import {Flex, WingBlank} from '@ant-design/react-native'
+import {Actions} from 'react-native-router-flux'
 
 class CollectionList extends Component {
 
@@ -81,11 +82,11 @@ class CollectionList extends Component {
     }
 
     /*渲染数据*/
-    renderData({item}) {
+    renderData =({item}) => {
         return (
-            <TouchableHighlight underlayColor={styles.bgColor} activeOpacity={1} onPress={() => {
-                navigate('Profile', { name: 'Jane' })
-            }}>
+            <TouchableHighlight underlayColor="white" onPress={()=>{
+                Actions.detail({id:item.id});
+            }} >
                 <WingBlank style={styles.wingBlankCss}>
                     <Flex direction={"column"}>
                         <Flex.Item>
@@ -105,6 +106,8 @@ class CollectionList extends Component {
             </TouchableHighlight>
         )
     }
+
+
 
     render() {
         if (this.state.isLoading) {
@@ -144,8 +147,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
         marginLeft: 30
-    },
-    bgColor: {color: 'white'}
+    }
 })
 
 export default CollectionList;

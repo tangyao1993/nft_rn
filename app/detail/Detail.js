@@ -1,27 +1,44 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Image, FlatList, ScrollView, ActivityIndicator} from "react-native";
-import Swiper from 'react-native-swiper'
-import axios from "axios";
-import {Flex, WingBlank} from "@ant-design/react-native";
+import {Image, StyleSheet, Text, View} from "react-native";
+
 
 const styles = StyleSheet.create({
-
+    container:{
+        flex:1,
+    },
+    imgCss:{
+        width:'100%',
+        height:'50%'
+    },
 })
 
 class Detail extends Component {
-
-    constructor(props: any) {
-        super(props)
-        this.state = {
+    constructor(props) {
+        super(props);
+        this.state={
             id:props.id
         }
     }
 
+    componentDidMount() {
+        //根据id获取详情
+
+    }
+
     render() {
         return (
-            <View>
-                <Text>{this.state.id}</Text>
+            <View style={styles.container}>
+                <Image style={styles.imgCss} source={require("../resource/img.png")}/>
+                <Text>id:{this.state.id}</Text>
+                <Text>名称</Text>
+                <Text>发行数量:100</Text>
+                <Text>流通数量:100</Text>
+                <Text>合约地址</Text>
+                <Text>链上标识</Text>
+                <Text>创作者</Text>
+                <Text>拥有者</Text>
             </View>
+
         );
     }
 }

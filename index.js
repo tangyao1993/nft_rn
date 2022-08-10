@@ -1,6 +1,6 @@
 import { registerRootComponent } from 'expo';
-import App from './app/App';
 import axios from "axios";
+import Main from "./app/Main";
 
 axios.defaults.baseURL='http://106.12.117.221:38080';
-registerRootComponent(App);
+registerRootComponent(Main);
