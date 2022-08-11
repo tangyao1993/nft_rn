@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions, Image} from "react-native";
 import {Flex} from "@ant-design/react-native";
 
 
@@ -30,6 +30,11 @@ const styles = StyleSheet.create({
         borderRadius: 20,
     },
 })
+
+
+const {width, height, scale} = Dimensions.get('window');
+
+
 class PayDetail extends Component {
 
     constructor(props) {
@@ -40,32 +45,78 @@ class PayDetail extends Component {
     render() {
         return (
             <Flex>
-                <ScrollView>
-                    {/*<View style={styles.rootView}>*/}
-                        <View style={{flex:1,height:100,marginTop:20,backgroundColor:'red'}}>
-                            <Text>
-                                存储地址
-                            </Text>
-                            <Text style={{justifyContent:"flex-end",paddingLeft:200,color:'black'}}>
+                <View style={styles.rootView}>
 
-                                asdsadasdsa
+                    <View style={{paddingTop: 10, backgroundColor: "#fff"}}>
+                        <View style={{flexDirection: "row", marginTop: 4,}}>
 
-                            </Text>
+                            <View style={{height: 30, flex: 1}}>
+                                <Text style={{fontSize:20,lineHeight:20}}>存储地址</Text>
+                            </View>
+                            <View style={{height: 20, width: 174,}}>
+                                <Text style={{fontSize:20,lineHeight:20}}>0x000a*****000</Text>
+                            </View>
+                        </View>
+                        <View style={{ marginTop:10,marginLeft:10,marginRight:10,marginBottom:10, height: 30 , width: width}}>
+                            <Text>灰色文本</Text>
+                        </View>
+                    </View>
 
+                    <View style={{paddingTop: 15,}}>
+                        <View>
+
+
+                            <Text
+                                style={{fontWeight: "bold", lineHeight: 20, fontSize: 20, color: "#000000"}}>商品详情</Text>
+                            <View>
+
+
+                                <View style={{flexDirection: "row", paddingLeft: 4,marginTop:10}}>
+                                    <Image
+                                        style={{width: 50, height: 50, borderRadius: 0}}
+                                        source={require("../resource/img.png")}
+                                    />
+                                    <View style={{paddingLeft: 15}}>
+                                        <Text>作品名称</Text>
+                                        <Text>#123/200</Text>
+                                    </View>
+
+                                </View>
+                            </View></View>
+
+                    </View>
+
+
+                    <View style={{paddingTop: 10}}>
+                        <View style={{ marginTop: 4,height:40}}>
+                            <View style={{flexDirection: "row",marginTop:10}}>
+                                <View style={{height: 20, flex: 1}}>
+                                    <Text style={{lineHeight: 20, fontSize: 20}}>应付金额</Text>
+                                </View>
+                                <View style={{  height: 20, width: 100,}}>
+                                    <Text>￥10000</Text>
+                                </View>
+                            </View>
                         </View>
-                        <View style={{flex:1,height:100,marginTop:20,backgroundColor:'blue'}}>
-                            <Text>商品详情</Text>
+                    </View>
+
+                    <View style={{paddingTop: 10}}>
+                        <View style={{ marginTop: 4,height:80}}>
+                            <View style={{height: 20, flex: 1,marginTop:10}}>
+                                <Text style={{lineHeight: 20, fontSize: 20}}>服务须知</Text>
+                            </View>
+                            <View style={{height: 20, flex: 1,marginTop:10}}>
+                                {/*todo: 按钮*/}
+                                <Text style={{lineHeight: 18, fontSize: 18}}>我已同意xxxxx</Text>
+                            </View>
                         </View>
-                        <View style={{flex:1,height:100,marginTop:20,backgroundColor:'gray'}}>
-                            <Text>应付金额</Text>
-                        </View>
-                        <View style={{flex:1,height:100,marginTop:20,backgroundColor:'red'}}>
-                            <Text>
-                                服务须知
-                            </Text>
-                        </View>
-                    {/*</View>*/}
-                </ScrollView>
+
+                    </View>
+                    <View style={{height:700}}>
+
+
+                    </View>
+                </View>
                 <View style={styles.footer}>
                     <Text style={{width:150,color:"#000",fontSize:20,textAlign: 'center',paddingBottom:25,paddingLeft:20}}>
                         $100
