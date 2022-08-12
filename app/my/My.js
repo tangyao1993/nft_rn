@@ -26,7 +26,7 @@ export default class My extends React.Component<any, any> {
                     <Flex direction="row" style={{height: 100}}>
                         <Flex.Item style={{flex: 1}}>
                             <Image style={{width: 100, height: 100, borderRadius: 50}}
-                                   source={require("../resource/d.jpeg")}/>
+                                   source={require("../resource/morentouxiang.jpeg")}/>
                         </Flex.Item>
                         <Flex.Item style={{flex: 3}}>
                             <Flex direction="column" style={{flex: 1}}>

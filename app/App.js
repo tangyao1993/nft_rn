@@ -16,7 +16,7 @@ class App extends Component {
             this.setState({
                 isShowLauncher:false
             })
-        },1)
+        },5000)
 
     }
 
