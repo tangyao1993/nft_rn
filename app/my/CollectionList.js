@@ -90,7 +90,7 @@ class CollectionList extends Component {
                 <WingBlank style={styles.wingBlankCss}>
                     <Flex direction={"column"}>
                         <Flex.Item>
-                            <Image style={styles.imgCss} source={require("../resource/img.png")}/>
+                            <Image style={styles.imgCss} source={{uri: item.url}}/>
                         </Flex.Item>
                         <Flex.Item>
                             <Text>名称:{item.id}</Text>

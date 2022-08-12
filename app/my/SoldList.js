@@ -1,9 +1,10 @@
 
 /*已卖出列表*/
 import React, {Component} from 'react';
-import {View, FlatList, Text, StyleSheet, Image, ActivityIndicator} from 'react-native'
+import {View, FlatList, Text, StyleSheet, Image, ActivityIndicator, TouchableHighlight} from 'react-native'
 import axios from "axios";
 import {Flex, WingBlank} from "@ant-design/react-native";
+import {Actions} from "react-native-router-flux";
 
 class SoldList extends Component {
     constructor(props){
@@ -83,22 +84,26 @@ class SoldList extends Component {
     /*渲染数据*/
     renderData({item}){
         return(
-            <WingBlank style={styles.wingBlankCss}>
-                <Flex direction={"column"}>
-                    <Flex.Item>
-                        <Image style={styles.imgCss} source={require("../resource/img.png")}/>
-                    </Flex.Item>
-                    <Flex.Item>
-                        <Text>名称:{item.id}</Text>
-                    </Flex.Item>
-                    <Flex.Item>
-                        <Text>作者</Text>
-                    </Flex.Item>
-                    <Flex.Item>
-                        <Text>价格:{item.price}</Text>
-                    </Flex.Item>
-                </Flex>
-            </WingBlank>
+            <TouchableHighlight underlayColor="white" onPress={()=>{
+                Actions.detail({id:item.id});
+            }} >
+                <WingBlank style={styles.wingBlankCss}>
+                    <Flex direction={"column"}>
+                        <Flex.Item>
+                            <Image style={styles.imgCss} source={{uri: item.url}}/>
+                        </Flex.Item>
+                        <Flex.Item>
+                            <Text>名称:{item.id}</Text>
+                        </Flex.Item>
+                        <Flex.Item>
+                            <Text>作者</Text>
+                        </Flex.Item>
+                        <Flex.Item>
+                            <Text>价格:{item.price}</Text>
+                        </Flex.Item>
+                    </Flex>
+                </WingBlank>
+            </TouchableHighlight>
         )
     }
 

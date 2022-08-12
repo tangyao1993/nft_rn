@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 import {Flex} from "@ant-design/react-native";
 import {Actions} from "react-native-router-flux";
 

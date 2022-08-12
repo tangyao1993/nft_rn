@@ -44,7 +44,6 @@ class Market extends Component {
     }
 
     getPics = () => {
-        console.log("getPics")
         axios.get("/super/market/list", {params: {current: this.state.picPageNum, size: this.state.picPageSize}}).then(
             response => {
                 const resp = response.data;
@@ -62,7 +61,6 @@ class Market extends Component {
     }
 
     getData = () => {
-        console.log("getData")
         axios.get("/market/group",{params:{current:this.state.pageNum,size:this.state.pageSize}}).then(
             response=>{
                 const resp = response.data;
