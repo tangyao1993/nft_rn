@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Flex} from "@ant-design/react-native";
 import {Actions} from "react-native-router-flux";
+import axios from "axios";
 
 
 const styles = StyleSheet.create({
@@ -43,14 +44,28 @@ class Detail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: props.id
+            storageId: props.storageId
         }
     }
 
 
     componentDidMount() {
         //根据id获取详情
+        axios.get("/nft/me/col",{params:{storageId:this.state.storageId}}).then(
+            response=>{
+                const resp = response.data;
 
+                //console.log(resp);
+                if (resp.code === 200){
+                    this.setState({
+                        dataArr:this.state.dataArr.concat(resp.data.records),
+                        totalPage:resp.data.pages
+                    })
+                }
+
+            }).catch(error => {
+            console.log(error);
+        })
     }
 
     render() {

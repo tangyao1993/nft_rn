@@ -21,11 +21,9 @@ class CollectionList extends Component {
 
 
     getData() {
-        axios.get("/nft/page", {params: {current: this.state.pageNum, size: this.state.pageSize}}).then(
+        axios.get("/col/page", {params: {current: this.state.pageNum, size: this.state.pageSize,userId:1}}).then(
             response => {
                 const resp = response.data;
-
-                //console.log(resp);
                 if (resp.code === 200) {
                     this.setState({
                         dataArr: this.state.dataArr.concat(resp.data.records),
@@ -85,7 +83,7 @@ class CollectionList extends Component {
     renderData =({item}) => {
         return (
             <TouchableHighlight underlayColor="white" onPress={()=>{
-                Actions.detail({id:item.id});
+                Actions.detail({id:item.storageId});
             }} >
                 <WingBlank style={styles.wingBlankCss}>
                     <Flex direction={"column"}>
@@ -93,10 +91,10 @@ class CollectionList extends Component {
                             <Image style={styles.imgCss} source={{uri: item.url}}/>
                         </Flex.Item>
                         <Flex.Item>
-                            <Text>名称:{item.id}</Text>
+                            <Text>名称:{item.managerName}</Text>
                         </Flex.Item>
                         <Flex.Item>
-                            <Text>作者</Text>
+                            <Text>作者:{item.authorName}</Text>
                         </Flex.Item>
                         <Flex.Item>
                             <Text>价格:{item.price}</Text>
