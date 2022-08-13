@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View} from "react-native";
+import {View} from "react-native";
 import Launcher from "./launcher/Launcher";
 import Nav from "./nav/Nav";
 
@@ -16,7 +16,7 @@ class App extends Component {
             this.setState({
                 isShowLauncher:false
             })
-        },5000)
+        },2000)
 
     }
 
