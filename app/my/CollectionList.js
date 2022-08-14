@@ -83,7 +83,7 @@ class CollectionList extends Component {
     renderData =({item}) => {
         return (
             <TouchableHighlight underlayColor="white" onPress={()=>{
-                Actions.detail({id:item.storageId});
+                Actions.collectionListDetail({storageId:item.storageId});
             }} >
                 <WingBlank style={styles.wingBlankCss}>
                     <Flex direction={"column"}>

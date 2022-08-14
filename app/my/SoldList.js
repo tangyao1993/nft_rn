@@ -24,8 +24,6 @@ class SoldList extends Component {
         axios.get("/col/sold",{params:{current:this.state.pageNum,size:this.state.pageSize,userId:1}}).then(
             response=>{
                 const resp = response.data;
-
-                //console.log(resp);
                 if (resp.code === 200){
                     this.setState({
                         dataArr:this.state.dataArr.concat(resp.data.records),
@@ -85,7 +83,7 @@ class SoldList extends Component {
     renderData({item}){
         return(
             <TouchableHighlight underlayColor="white" onPress={()=>{
-                Actions.detail({storageId:item.storageId});
+                Actions.soldListDetail({storageId:item.storageId});
             }} >
                 <WingBlank style={styles.wingBlankCss}>
                     <Flex direction={"column"}>

@@ -1,3 +1,6 @@
+/**
+ * 已售卖详情
+ */
 import React, {Component} from 'react';
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Flex} from "@ant-design/react-native";
@@ -7,7 +10,6 @@ import axios from "axios";
 
 const styles = StyleSheet.create({
     rootView: {
-        // backgroundColor: '#e84848',
         flex: 1,
         flexDirection: 'column',
         flexWrap: 'wrap'
@@ -40,11 +42,12 @@ const styles = StyleSheet.create({
 })
 
 
-class Detail extends Component {
+class SoldListDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            storageId: props.storageId
+            storageId: props.storageId,
+            storageDetail:{},
         }
     }
 
@@ -55,11 +58,9 @@ class Detail extends Component {
             response=>{
                 const resp = response.data;
 
-                //console.log(resp);
                 if (resp.code === 200){
                     this.setState({
-                        dataArr:this.state.dataArr.concat(resp.data.records),
-                        totalPage:resp.data.pages
+                        storageDetail:resp.data
                     })
                 }
 
@@ -80,7 +81,7 @@ class Detail extends Component {
                                         width: '105%',
                                         height: 300,
                                     }}
-                                    source={require("../resource/img.png")}
+                                    source={{uri:this.state.storageDetail.url}}
                                 />
                             </View>
 
@@ -92,12 +93,12 @@ class Detail extends Component {
                                     fontSize: 24,
                                     color: "#000000",
                                     paddingTop:15
-                                }}>皇帝的需要#202</Text>
+                                }}>{this.state.storageDetail.name}#{this.state.storageDetail.numb}</Text>
                                 <View style={{marginTop: 15}}>
                                     <Text style={{fontWeight: "bold", fontSize: 24, color: "#000"}}>所属专辑</Text>
                                     <View style={{flexDirection: "row", marginTop: 15}}>
                                         <Text style={{fontSize: 16, color: "#262426"}}>专辑名称 </Text>
-                                        <Text style={{fontWeight: "bold", fontSize: 16, paddingLeft: 10, color: "#262426"}}>大千世界
+                                        <Text style={{fontWeight: "bold", fontSize: 16, paddingLeft: 10, color: "#262426"}}>{this.state.storageDetail.bigName}
                                         </Text>
                                         <Text style={{fontSize: 16, paddingLeft: 90, color: "#262426"}}>全部编号</Text>
                                     </View>
@@ -109,11 +110,11 @@ class Detail extends Component {
                                             <Text style={{lineHeight: 24, paddingRight: 40}}>
                                                 <Text style={{backgroundColor: "#ccc"}}>发行</Text>
                                                 <Text
-                                                    style={{backgroundColor: "#89e725", paddingLeft: 20}}>100份</Text></Text>
+                                                    style={{backgroundColor: "#89e725", paddingLeft: 20}}>{this.state.storageDetail.count}份</Text></Text>
                                             <Text style={{lineHeight: 24, paddingRight: 40}}>
                                                 <Text style={{backgroundColor: "#ccc"}}>流通</Text>
                                                 <Text
-                                                    style={{backgroundColor: "#89e725", paddingLeft: 20}}>100份</Text></Text>
+                                                    style={{backgroundColor: "#89e725", paddingLeft: 20}}>{this.state.storageDetail.liutong}份</Text></Text>
                                         </View>
                                     </View>
 
@@ -128,8 +129,8 @@ class Detail extends Component {
                                                         source={require("../resource/img.png")}
                                                     />
                                                     <View style={{paddingLeft: 15,paddingTop:10}}>
-                                                        <Text>张三</Text>
-                                                        <Text>0x00000000</Text>
+                                                        <Text>{this.state.storageDetail.authorName}</Text>
+                                                        <Text>{this.state.storageDetail.authorAdd}</Text>
                                                     </View>
                                                     <View style={{paddingLeft: 30,paddingTop:10}}>
                                                         <Text>主页</Text>
@@ -173,33 +174,6 @@ class Detail extends Component {
                         </View>
                     </ScrollView>
 
-
-
-                    <View style={styles.footer}>
-                        <Text style={{width:150,color:"#000",fontSize:20,textAlign: 'center',paddingBottom:25,paddingLeft:20}}>
-                            $100
-                        </Text>
-                        <TouchableOpacity  style={styles.bottomButtons} onPress={() => {
-                            Actions.payDetail();
-                        }}>
-                            <View style={{flexDirection:"row"}}>
-
-                                <Text style={{
-                                    fontSize: 20,
-                                    color: '#FFF',
-                                    textAlign: 'center',
-                                    paddingBottom:25,
-
-                                }}>
-                                    立即购买
-                                </Text>
-
-                            </View>
-
-
-                        </TouchableOpacity>
-                    </View>
-
                 </Flex>
 
 
@@ -209,4 +183,4 @@ class Detail extends Component {
     }
 }
 
-export default Detail;
+export default SoldListDetail;
