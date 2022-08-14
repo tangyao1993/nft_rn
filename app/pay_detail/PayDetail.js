@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions, Image} from "react-native";
 import {Flex} from "@ant-design/react-native";
+import axios from "axios";
 
 
 const styles = StyleSheet.create({
@@ -39,6 +40,26 @@ class PayDetail extends Component {
 
     constructor(props) {
         super(props);
+        this.state={
+            storageId:props.storageId
+        }
+    }
+
+    componentDidMount() {
+        /*axios.get("/nft/me/col",{params:{storageId:this.state.storageId}}).then(
+            response=>{
+                const resp = response.data;
+                // console.log(resp);
+                // console.log(this.state.storageId);
+                if (resp.code === 200){
+                    this.setState({
+                        storageDetail:resp.data
+                    })
+                }
+
+            }).catch(error => {
+            console.log(error);
+        })*/
     }
 
 
@@ -58,19 +79,14 @@ class PayDetail extends Component {
                             </View>
                         </View>
                         <View style={{ marginTop:10,marginLeft:10,marginRight:10,marginBottom:10, height: 30 , width: width}}>
-                            <Text>灰色文本</Text>
+                            <Text>该钱包账户由平台代理创建，帮助您存储数字藏品，完成链上寄售。未经您的允许，平台不会干预该账户的任何信息</Text>
                         </View>
                     </View>
 
                     <View style={{paddingTop: 15,}}>
                         <View>
-
-
-                            <Text
-                                style={{fontWeight: "bold", lineHeight: 20, fontSize: 20, color: "#000000"}}>商品详情</Text>
+                            <Text style={{fontWeight: "bold", lineHeight: 20, fontSize: 20, color: "#000000"}}>商品详情</Text>
                             <View>
-
-
                                 <View style={{flexDirection: "row", paddingLeft: 4,marginTop:10}}>
                                     <Image
                                         style={{width: 50, height: 50, borderRadius: 0}}

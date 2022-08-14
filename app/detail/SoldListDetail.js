@@ -48,6 +48,7 @@ class SoldListDetail extends Component {
         this.state = {
             storageId: props.storageId,
             storageDetail:{},
+            isHeaderPic:false,//是否有头像
         }
     }
 
@@ -62,6 +63,11 @@ class SoldListDetail extends Component {
                     this.setState({
                         storageDetail:resp.data
                     })
+                    if (resp.data.authorHead != null){
+                        this.setState({
+                            isHeaderPic:true
+                        })
+                    }
                 }
 
             }).catch(error => {
@@ -126,7 +132,7 @@ class SoldListDetail extends Component {
                                                 <View style={{flexDirection: "row", paddingLeft: 4,marginTop:10}}>
                                                     <Image
                                                         style={{width: 50, height: 50, borderRadius: 60}}
-                                                        source={require("../resource/img.png")}
+                                                        source={this.state.isHeaderPic?{uri:this.state.storageDetail.authorHead}:require("../resource/img.png")}
                                                     />
                                                     <View style={{paddingLeft: 15,paddingTop:10}}>
                                                         <Text>{this.state.storageDetail.authorName}</Text>
@@ -137,15 +143,12 @@ class SoldListDetail extends Component {
                                                     </View>
                                                 </View>
                                             </View>
+                                            <Text style={{fontWeight: "bold", fontSize: 24, color: "#000",marginTop:10}}>作品描述</Text>
                                             <Text style={{
                                                 paddingTop: 6,
                                                 paddingLeft: 5
                                             }}>
-                                                文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容
-                                                文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内
-                                                容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容
-                                                文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容
-                                                文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容
+                                                {this.state.storageDetail.mangerDesc}
                                             </Text>
                                         </View>
                                     </View>

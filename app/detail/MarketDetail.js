@@ -1,5 +1,5 @@
 /**
- * 藏品详情
+ * 市场列表详情
  */
 import React, {Component} from 'react';
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
@@ -42,11 +42,11 @@ const styles = StyleSheet.create({
 })
 
 
-class CollectionListDetail extends Component {
+class MarketDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            storageId: props.storageId,
+            marketId: props.marketId,
             storageDetail:{},
             isHeaderPic:false,//是否有头像
         }
@@ -55,7 +55,7 @@ class CollectionListDetail extends Component {
 
     componentDidMount() {
         //根据id获取详情
-        axios.get("/nft/me/col",{params:{storageId:this.state.storageId}}).then(
+        axios.get("/nft/id",{params:{marketId:this.state.marketId}}).then(
             response=>{
                 const resp = response.data;
                 // console.log(resp);
@@ -148,7 +148,7 @@ class CollectionListDetail extends Component {
                                             <Text style={{fontWeight: "bold", fontSize: 24, color: "#000",marginTop:10}}>作品描述</Text>
                                             <Text style={{
                                                 paddingTop: 6,
-                                                paddingLeft: 5
+                                                paddingLeft: 5,
                                             }}>
                                                 {this.state.storageDetail.mangerDesc}
                                             </Text>
@@ -182,12 +182,11 @@ class CollectionListDetail extends Component {
 
 
                     <View style={styles.footer}>
-                        {/*<Text style={{width:150,color:"#000",fontSize:20,textAlign: 'center',paddingBottom:25,paddingLeft:20}}>
-                            $100
-                        </Text>*/}
+                        <Text style={{width:150,color:"#000",fontSize:20,textAlign: 'center',paddingBottom:25,paddingLeft:20}}>
+                            ￥{this.state.storageDetail.price}
+                        </Text>
                         <TouchableOpacity  style={styles.bottomButtons} onPress={() => {
-                            //TODO 跳转寄售页面
-                            //Actions.payDetail();
+                            Actions.payDetail({storageId:this.state.storageId});
                         }}>
                             <View style={{flexDirection:"row"}}>
 
@@ -198,7 +197,7 @@ class CollectionListDetail extends Component {
                                     paddingBottom:25,
 
                                 }}>
-                                    立即寄售
+                                    立即购买
                                 </Text>
 
                             </View>
@@ -216,4 +215,4 @@ class CollectionListDetail extends Component {
     }
 }
 
-export default CollectionListDetail;
+export default MarketDetail;

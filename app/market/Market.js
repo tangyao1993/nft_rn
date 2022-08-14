@@ -146,7 +146,7 @@ class Market extends Component {
     renderData({item}) {
         return (
             <TouchableHighlight underlayColor="white" onPress={()=>{
-                Actions.detail({id:item.id});
+                Actions.marketDetail({marketId:item.id});
             }} >
                 <WingBlank style={styles.wingBlankCss}>
                     <Flex direction={"column"}>
