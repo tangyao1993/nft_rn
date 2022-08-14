@@ -4,6 +4,7 @@ import Swiper from 'react-native-swiper'
 import axios from "axios";
 import {Flex, WingBlank} from "@ant-design/react-native";
 import {Actions} from "react-native-router-flux";
+import SuperMarketDetail from "../detail/SuperMarketDetail";
 
 const {width, height, scale} = Dimensions.get('window');
 
@@ -232,7 +233,7 @@ class Market extends Component {
                                       }
                                 >
                                     <TouchableHighlight underlayColor="white" onPress={()=>{
-                                        Actions.detail({id:item.id});
+                                        Actions.superMarketDetail({storageId:item.storageId});
                                     }} >
                                     <Image
                                         resizeMode="stretch"
