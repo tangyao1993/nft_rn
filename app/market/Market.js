@@ -233,7 +233,8 @@ class Market extends Component {
                                       }
                                 >
                                     <TouchableHighlight underlayColor="white" onPress={()=>{
-                                        Actions.superMarketDetail({marketId:item.id});
+                                        /*Actions.superMarketDetail({marketId:item.id});*/
+                                        Actions.login();
                                     }} >
                                     <Image
                                         resizeMode="stretch"

@@ -54,7 +54,6 @@ class SuperMarketPayDetail extends Component {
      * 扣款接口，抢购接口
      */
     panicBuying = () =>{
-        //根据id获取详情
         axios.post("/super/market/buy",{mangerId:this.state.mangerId}).then(
             response=>{
                 const resp = response.data;
@@ -143,7 +142,7 @@ class SuperMarketPayDetail extends Component {
                 </View>
                 <View style={styles.footer}>
                     <Text style={{width:150,color:"#000",fontSize:20,textAlign: 'center',paddingBottom:25,paddingLeft:20}}>
-                        $100
+                        ￥{this.state.price}
                     </Text>
                     <TouchableOpacity  style={styles.bottomButtons} onPress={() => {
                         this.panicBuying();

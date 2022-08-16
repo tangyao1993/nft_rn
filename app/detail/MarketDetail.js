@@ -186,7 +186,14 @@ class MarketDetail extends Component {
                             ￥{this.state.storageDetail.price}
                         </Text>
                         <TouchableOpacity  style={styles.bottomButtons} onPress={() => {
-                            Actions.payDetail({storageId:this.state.storageId});
+                            Actions.payDetail({
+                                marketId:this.state.marketId,
+                                bigName:this.state.storageDetail.bigName,
+                                url:this.state.storageDetail.url,
+                                authorAdd:this.state.storageDetail.authorAdd,
+                                price:this.state.storageDetail.price,
+
+                            });
                         }}>
                             <View style={{flexDirection:"row"}}>
 

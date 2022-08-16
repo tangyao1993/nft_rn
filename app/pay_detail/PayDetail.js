@@ -41,25 +41,30 @@ class PayDetail extends Component {
     constructor(props) {
         super(props);
         this.state={
-            storageId:props.storageId
+            marketId:props.marketId,
+            bigName:props.bigName,
+            url:props.url,
+            authorAdd:props.authorAdd,
+            price:props.price,
         }
     }
 
-    componentDidMount() {
-        /*axios.get("/nft/me/col",{params:{storageId:this.state.storageId}}).then(
+
+    buying=()=>{
+        axios.post("/market/buy",{marketId:this.state.marketId}).then(
             response=>{
                 const resp = response.data;
-                // console.log(resp);
-                // console.log(this.state.storageId);
+                console.log(resp)
                 if (resp.code === 200){
-                    this.setState({
-                        storageDetail:resp.data
-                    })
+
+                }else{
+                    console.log(resp.msg);
                 }
 
             }).catch(error => {
             console.log(error);
-        })*/
+        })
+
     }
 
 
@@ -75,7 +80,7 @@ class PayDetail extends Component {
                                 <Text style={{fontSize:20,lineHeight:20}}>存储地址</Text>
                             </View>
                             <View style={{height: 20, width: 174,}}>
-                                <Text style={{fontSize:20,lineHeight:20}}>0x000a*****000</Text>
+                                <Text style={{fontSize:20,lineHeight:20}}>{this.state.authorAdd}</Text>
                             </View>
                         </View>
                         <View style={{ marginTop:10,marginLeft:10,marginRight:10,marginBottom:10, height: 30 , width: width}}>
@@ -90,11 +95,11 @@ class PayDetail extends Component {
                                 <View style={{flexDirection: "row", paddingLeft: 4,marginTop:10}}>
                                     <Image
                                         style={{width: 50, height: 50, borderRadius: 0}}
-                                        source={require("../resource/img.png")}
+                                        source={{uri:this.state.url}}
                                     />
                                     <View style={{paddingLeft: 15}}>
                                         <Text>作品名称</Text>
-                                        <Text>#123/200</Text>
+                                        <Text>{this.state.bigName}</Text>
                                     </View>
 
                                 </View>
@@ -110,7 +115,7 @@ class PayDetail extends Component {
                                     <Text style={{lineHeight: 20, fontSize: 20}}>应付金额</Text>
                                 </View>
                                 <View style={{  height: 20, width: 100,}}>
-                                    <Text>￥10000</Text>
+                                    <Text>￥{this.state.price}</Text>
                                 </View>
                             </View>
                         </View>
@@ -135,9 +140,10 @@ class PayDetail extends Component {
                 </View>
                 <View style={styles.footer}>
                     <Text style={{width:150,color:"#000",fontSize:20,textAlign: 'center',paddingBottom:25,paddingLeft:20}}>
-                        $100
+                        ￥{this.state.price}
                     </Text>
                     <TouchableOpacity  style={styles.bottomButtons} onPress={() => {
+                        this.buying();
                     }}>
                         <View style={{flexDirection:"row"}}>
 
