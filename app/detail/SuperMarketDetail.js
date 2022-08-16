@@ -46,7 +46,7 @@ class SuperMarketDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            storageId: props.storageId,
+            marketId: props.marketId,
             storageDetail:{},
             isHeaderPic:false,//是否有头像
         }
@@ -55,10 +55,10 @@ class SuperMarketDetail extends Component {
 
     componentDidMount() {
         //根据id获取详情
-        axios.get("/super/market/byId",{params:{storageId:this.state.storageId}}).then(
+        axios.get("/super/market/byId",{params:{marketId:this.state.marketId}}).then(
             response=>{
                 const resp = response.data;
-                // console.log(resp);
+                 //console.log(resp);
                 // console.log(this.state.storageId);
 
                 if (resp.code === 200){
@@ -95,20 +95,13 @@ class SuperMarketDetail extends Component {
 
                             <View style={{marginTop:15}}>
                                 <Text style={{fontSize: 14, color: "#000000"}}>官方认证</Text>
-                                <Text style={{
-                                    fontWeight: "bold",
-                                    lineHeight: 24,
-                                    fontSize: 24,
-                                    color: "#000000",
-                                    paddingTop:15
-                                }}>{this.state.storageDetail.name}#{this.state.storageDetail.numb}</Text>
                                 <View style={{marginTop: 15}}>
                                     <Text style={{fontWeight: "bold", fontSize: 24, color: "#000"}}>所属专辑</Text>
                                     <View style={{flexDirection: "row", marginTop: 15}}>
                                         <Text style={{fontSize: 16, color: "#262426"}}>专辑名称 </Text>
                                         <Text style={{fontWeight: "bold", fontSize: 16, paddingLeft: 10, color: "#262426"}}>{this.state.storageDetail.bigName}
                                         </Text>
-                                        <Text style={{fontSize: 16, paddingLeft: 90, color: "#262426"}}>全部编号</Text>
+
                                     </View>
 
 
@@ -186,7 +179,14 @@ class SuperMarketDetail extends Component {
                             ￥{this.state.storageDetail.price}
                         </Text>
                         <TouchableOpacity  style={styles.bottomButtons} onPress={() => {
-                            Actions.payDetail({storageId:this.state.storageId});
+                            Actions.superMarketPayDetail({
+                                bigName:this.state.storageDetail.bigName,
+                                url:this.state.storageDetail.url,
+                                authorAdd:this.state.storageDetail.authorAdd,
+                                price:this.state.storageDetail.price,
+                                mangerId:this.state.storageDetail.mangerId,
+
+                            });
                         }}>
                             <View style={{flexDirection:"row"}}>
 

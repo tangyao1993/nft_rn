@@ -6,6 +6,7 @@ import PayDetail from "./pay_detail/PayDetail";
 import SoldListDetail from "./detail/SoldListDetail";
 import MarketDetail from "./detail/MarketDetail";
 import SuperMarketDetail from "./detail/SuperMarketDetail";
+import SuperMarketPayDetail from "./pay_detail/SuperMarketPayDetail";
 class Main extends Component {
     constructor(props) {
         super(props);
@@ -23,6 +24,7 @@ class Main extends Component {
                     <Scene key="payDetail" component={PayDetail} title="支付详情"></Scene>
                     <Scene key="marketDetail" component={MarketDetail} title="详情"></Scene>
                     <Scene key="superMarketDetail" component={SuperMarketDetail} title="详情"></Scene>
+                    <Scene key="superMarketPayDetail" component={SuperMarketPayDetail} title="支付详情"></Scene>
                 </Stack>
             </Router>
         );
